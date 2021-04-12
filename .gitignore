@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../../../:\Users\bboose\IdeaProjects\npr\roles-work\DS4A-encryption-decryption\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+/aws.xml
+/misc.xml
+/modules.xml
+/.idea/
