@@ -9,39 +9,38 @@ import string
 
 
 class RSACalc:
-
-    def __init__(self, name):
-        self.name = name
-        self.exponent = self.create_exponent() # this is e: 1 < e < ϕ(𝑛)  ϕ(𝑛) cannot be divisible by e
-
-    def __repr__(self):
-        return self.name
-
-    P_PRIME = 13
-    Q_PRIME = 17
-
-    # this is n:  ϕ(𝑛) = (𝑝 − 1)(𝑞 − 1) and e as exponent
-    public_key = P_PRIME * Q_PRIME
-
-    phi_n = (P_PRIME - 1) * (Q_PRIME - 1)
-
-    # this is d: (𝑖 × ϕ(𝑛) + 1) / 𝑒   i can be any integer
-    private_key = 0
-
-    # encrypted text array of 𝑡𝑟𝑎𝑛𝑠𝑙𝑎𝑡𝑖𝑜𝑛 𝑒 𝑚𝑜𝑑 n
-    cipher = []
-
+    i = 2
     # up and low case letters, numbers, punctuation and whitespace - no line feeds
-    dictionary = {char: ord(char) for char in string.printable}
+    DICTIONARY = {char: ord(char) for char in string.printable}
+
+    def __init__(self, p_prime=0, q_prime=0):
+        if not bool(p_prime):  # make automated testing easier
+            self.p_prime = 13
+        if not bool(q_prime):
+            self.q_prime = 17
+
+        self.phi_n = (self.p_prime - 1) * (self.q_prime - 1)
+        self.exponent = self.create_exponent()  # this is e: 1 < e < ϕ(𝑛)  ϕ(𝑛) cannot be divisible by e
+        self.private_key = self.create_private_key()
+
+        # this is n:  ϕ(𝑛) = (𝑝 − 1)(𝑞 − 1) and e as exponent
+        self.public_key = self.p_prime * self.q_prime
+
+        # this is d: (𝑖 × ϕ(𝑛) + 1) / 𝑒   i can be any integer
+        private_key = self.create_exponent()
 
     # pick a (preferably low) number for e, can't be a factor of ϕ(𝑛)
+    # this should always get the lowest number
     def create_exponent(self):
-        while self.exponent < self.phi_n and self.phi_n % self.exponent != 0:
-            self.exponent += 1
-        return self.exponent
+        exp = 1
+        print(f"phi_n = {self.phi_n}")
+        while exp < self.phi_n and self.phi_n % exp == 0:
+            exp += 1
+        print(f"exponent = {exp}")
+        return exp
 
-    def create_cipher(raw_text):
-
-
-
-
+    # create private key - gotta be an int tho
+    def create_private_key(self):
+        self.private_key = int((self.i * self.phi_n + 1) / self.exponent)
+        print(f"private key = {self.private_key}")
+        return self.private_key
