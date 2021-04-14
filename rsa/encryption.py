@@ -1,4 +1,5 @@
 """
+simple encryption script
 input: string from user, limited to upper/lower case letters, numbers, punctuation and whitespace
 output: encrypted text as cipher
 
@@ -20,16 +21,17 @@ print(f'List of Characters ={text_to_list}')
 public_key = rsa.public_key
 
 
-def create_cipher(converted_text):
+def encrypt_input(converted_text):
     exp = rsa.exponent
     ciph = []
     for char in converted_text:
-        ascii_value = rsa.DICTIONARY[char]
+        ascii_value = rsa.ENCRYPT_DICTIONARY[char]
         print(f'ascii:  {ascii_value}')
         encrypted_char = (ascii_value ** exp) % public_key
         ciph.append(encrypted_char)
     return ciph
 
 
-cipher = create_cipher(text_to_list)
-print(f'your cipher is:  {cipher}')
+cipher = encrypt_input(text_to_list)
+separator = " "
+print(f'your cipher is: {separator.join(map(str, cipher))}')
