@@ -8,7 +8,6 @@ that you used for encryption
 """
 
 import string
-import pprint
 
 
 class RSACalc:
@@ -17,10 +16,12 @@ class RSACalc:
     ENCRYPT_DICTIONARY = {char: ord(char) for char in string.printable}
     DECRYPT_DICTIONARY = {v: k for k, v in ENCRYPT_DICTIONARY.items()}
 
-    def __init__(self, p_prime=0, q_prime=0):
-        if not bool(p_prime):  # make automated testing easier
+    def __init__(self, pprime=0, qprime=0):
+        self.p_prime = pprime
+        self.q_prime = qprime
+        if not bool(pprime):  # make automated testing easier
             self.p_prime = 13
-        if not bool(q_prime):
+        if not bool(qprime):
             self.q_prime = 17
 
         self.phi_n = (self.p_prime - 1) * (self.q_prime - 1)
@@ -32,7 +33,7 @@ class RSACalc:
 
         # this is d: (𝑖 × ϕ(𝑛) + 1) / 𝑒   i can be any integer
         private_key = self.create_exponent()
-        self.print_values()
+        # self.print_values()
 
     # pick a (preferably low) number for e, can't be a factor of ϕ(𝑛)
     # this should always get the lowest number
