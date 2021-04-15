@@ -11,8 +11,9 @@ import string
 
 
 class RSACalc:
+    # completely random value used to calculate private key
     i = 2
-    # up and low case letters, numbers, punctuation and whitespace - no line feeds
+    # up and low case letters, numbers, punctuation and whitespace - no line feeds - create 2 to go both ways
     ENCRYPT_DICTIONARY = {char: ord(char) for char in string.printable}
     DECRYPT_DICTIONARY = {v: k for k, v in ENCRYPT_DICTIONARY.items()}
 
@@ -24,18 +25,19 @@ class RSACalc:
         if not bool(qprime):
             self.q_prime = 17
 
+        # this is ϕ(𝑛)
         self.phi_n = (self.p_prime - 1) * (self.q_prime - 1)
         self.exponent = self.create_exponent()  # this is e: 1 < e < ϕ(𝑛)  ϕ(𝑛) cannot be divisible by e
-        self.private_key = self.create_private_key()
-
-        # this is n:  ϕ(𝑛) = (𝑝 − 1)(𝑞 − 1) and e as exponent
-        self.public_key = self.p_prime * self.q_prime
 
         # this is d: (𝑖 × ϕ(𝑛) + 1) / 𝑒   i can be any integer
-        private_key = self.create_exponent()
-        # self.print_values()
+        self.private_key = self.create_private_key()
 
-    # pick a (preferably low) number for e, can't be a factor of ϕ(𝑛)
+        # this is n
+        self.public_key = self.p_prime * self.q_prime
+
+        self.print_values(self)
+
+    # returns the lowest possible value for e, that isn't a factor of ϕ(𝑛)
     # this should always get the lowest number
     def create_exponent(self):
         exp = 1
@@ -45,16 +47,15 @@ class RSACalc:
         # print(f"exponent = {exp}")
         return exp
 
-    # create private key - gotta be an int tho
+    # create private key - gotta be an int tho d: (𝑖 × ϕ(𝑛) + 1) / 𝑒
     def create_private_key(self):
         self.private_key = int((self.i * self.phi_n + 1) / self.exponent)
-        # print(f"private key = {self.private_key}")
         return self.private_key
 
+    @staticmethod
     def print_values(self):
-        print(
-            f'phi_n: {self.phi_n}, exponent: {self.exponent}, private key: {self.private_key}, public key: {self.public_key}')
+        print(f'phi_n: {self.phi_n}, exponent: {self.exponent}, private key: {self.private_key}, public key: {self.public_key}')
 
     @staticmethod
-    def print_dictionary(self, rsa_dict):
+    def print_dictionary(rsa_dict):
         print(rsa_dict)

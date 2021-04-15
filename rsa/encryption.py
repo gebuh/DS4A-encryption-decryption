@@ -5,13 +5,11 @@ output: encrypted text as cipher
 
 """
 import sys
-import argparse
+from arguments import Arguments
 from rsa_calc import RSACalc
 
-parser = argparse.ArgumentParser()
-parser.add_argument("pprime", type=int, nargs="?", default=0)
-parser.add_argument("qprime", type=int, nargs="?", default=0)
-args = parser.parse_args()
+
+args = Arguments.get_arguments()
 
 raw_text = input("give me some text: ")
 if not raw_text.isprintable() or not raw_text:
@@ -19,10 +17,10 @@ if not raw_text.isprintable() or not raw_text:
 
 # we're encrypting, so get the private key
 rsa = RSACalc(args.pprime, args.qprime)
-text_to_list = list(raw_text)
-print(f'List of Characters ={text_to_list}')
 
-# encrypted text array of 𝑡𝑟𝑎𝑛𝑠𝑙𝑎𝑡𝑖𝑜𝑛 𝑒 𝑚𝑜𝑑 n
+text_to_list = list(raw_text)
+
+print(f'List of Characters ={text_to_list}')
 
 public_key = rsa.public_key
 

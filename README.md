@@ -3,8 +3,20 @@
 ## Description
 From a user input txt file E-D will encrypt (public key) or decrypt (private key) text using configurable keys
 
+## File Structure
+```
+DS4A-encryption-decryption
+├── rsa
+    ├── arguments.py
+    ├── decryption.py
+    ├── encryption.py
+    ├── rsa_calc.py
+```
+
+
+
 ## Usage
-###  Encrypt
+
 assumes you're running from the rsa directory
 
 ```
@@ -29,7 +41,11 @@ Following characters are allowed (values from string.printable)
 
 decryption with some co primes do not work - need more investigation why, but the default p=13 and q=17 and p=53 and q=50  work
 
-- import the decimal module to reduce floating point errors: [floating point errors](https://medium.com/code-85/how-to-stop-floating-point-arithmetic-errors-in-python-a98d3a63ccc8)
+## TODO
+create a test harness to automate testing
+create standard test data
+- import the decimal module to reduce floating-point errors: [floating point errors](https://medium.com/code-85/how-to-stop-floating-point-arithmetic-errors-in-python-a98d3a63ccc8)
+
 ### More info:
 [link to project requirements](https://s3.us-east-2.amazonaws.com/ds4a-empowerment-2.0/cases/training/Encryption-Decryption+Mini-Project.pdf?latest=true)
 

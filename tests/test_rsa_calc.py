@@ -1,6 +1,24 @@
 from unittest import TestCase
 
-from rsa.rsa_calc import RSACalc
+"""
+ran out of time to accurately implement testing
+commont to both:
+    script arguments 
+        test with 0 args
+        test with 2 args
+    user input:
+        no input
+        unacceptable input
+test encryption:
+    test with both default and user entered primes:
+           
+test decryption:
+    test with both default and user entered primes:
+        test with garbage cipher
+        test with mismatched primes   
+ 
+ TODO - add some test data - better yet, create a test harness   
+"""
 
 
 class TestRSACalc(TestCase):
