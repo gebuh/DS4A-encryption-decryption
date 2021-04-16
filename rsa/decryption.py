@@ -20,8 +20,6 @@ def main():
     print(f'is this your string?: {decrypted_str}')
 
 
-# get input from the user
-
 def get_input_from_user():
     cipher_string = input("give me your cipher: ")
     if not cipher_string:
