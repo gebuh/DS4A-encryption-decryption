@@ -1,21 +1,37 @@
 """
-input: cipher - space separated list of numbers - no commas or quoted
+input: cipher - space separated list of numbers - no commas or quotes
 output: original text (we hope)
 """
 import sys
 from rsa_calc import RSACalc
 from arguments import Arguments
 
-args = Arguments.get_arguments()
 
-rsa = RSACalc(args.pprime, args.qprime)
-private_key = rsa.private_key
-public_key = rsa.public_key
+def main():
+    args = Arguments.get_arguments()
+    rsa = RSACalc(args.pprime, args.qprime)
+    private_key = rsa.private_key
+    public_key = rsa.public_key
+
+    cipher_string = get_input_from_user()
+    raw_cipher_list = cipher_string.split()  # get rid of commas
+    clean_cipher_list = convert_str_list_to_int_list(raw_cipher_list)
+    decrypted_str = decrpyt_cipher(clean_cipher_list, private_key, public_key, rsa)
+    print(f'is this your string?: {decrypted_str}')
 
 
-# take user input converted from string to list of ints
-# or die trying
-def string_list_to_int_list(raw_list):
+# get input from the user
+
+def get_input_from_user():
+    cipher_string = input("give me your cipher: ")
+    if not cipher_string:
+        sys.exit("you have to give me something to work with son, enter a space separated string of integers")
+    return cipher_string
+
+
+# take user input converted from string to list of ints or die trying
+# return a list of ints
+def convert_str_list_to_int_list(raw_list):
     cipher_list = []
     for each in raw_list:
         try:
@@ -27,7 +43,8 @@ def string_list_to_int_list(raw_list):
 
 # return a decrypted string from a list of ints, decrypts each char then
 # gets string value from ascii
-def decrpyt_cipher(clean_ciph_list):
+# returns the final string
+def decrpyt_cipher(clean_ciph_list, private_key, public_key, rsa):
     decrypted_list = []
     try:
         for each in clean_ciph_list:
@@ -41,12 +58,5 @@ def decrpyt_cipher(clean_ciph_list):
     return decrypted_string
 
 
-cipher_string = input("give me your cipher: ")
-if not cipher_string:
-    sys.exit("you have to give me something to work with son, enter a space separated string of integers")
-
-raw_cipher_list = cipher_string.split()
-clean_cipher_list = string_list_to_int_list(raw_cipher_list)
-decrypted_str = decrpyt_cipher(clean_cipher_list)
-
-print(f'is this your string?: {decrypted_str}')
+if __name__ == "__main__":
+    main()

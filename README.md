@@ -44,7 +44,8 @@ decryption with some co primes do not work - need more investigation why, but th
 ## TODO
 - create a test harness to automate testing
 - create standard test data
-- refactor scripts to use main
+- refactor encryption to use main
+- ~~refactor decryption to use main~~  
 - import the decimal module to reduce floating-point errors: [floating point errors](https://medium.com/code-85/how-to-stop-floating-point-arithmetic-errors-in-python-a98d3a63ccc8) - do I need this?
 
 ### More info:
